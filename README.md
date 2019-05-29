@@ -1,24 +1,6 @@
-# README
+# Rescue Unique Constraint Sample App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple rails app setup with the gem `rescue_unique_constraint`
+to show an issue occurring with the gem when saving relations.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+See spec/models/user_spec.rb for details.
