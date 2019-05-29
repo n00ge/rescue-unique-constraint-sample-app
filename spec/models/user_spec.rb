@@ -46,18 +46,35 @@ RSpec.describe User, type: :model do
         aggregate_failures do
           # this is failing
           expect(user.id).not_to be_present
+          # this is unexpected - if a record is not persisted I would not expect
+          # an id to be present
 
           # this is failing
           expect(user.errors).to be_present
+          # this is unexpected - if a related object fails, the errors should
+          # propagate onto the top level record
 
           # this does not fail
           expect(user.profile.id).not_to be_present
+          # this is expected
 
           # this does not fail
           expect(user.profile.errors[:street]).to include 'has already been taken'
+          # this is expected confirming the gem is doing what it should in this
+          # case
+
+          # this fails
+          expect(user).not_to be_persisted
+          # this is unexpected - the save propagates and rolls back but
+          # user is being communicated as if it were persisted
+
+          # this is an even bigger problem with the failure below:
 
           # this is failing
           expect { user.reload }.not_to raise(ActiveRecord::RecordNotFound)
+          # this is unexpected - because the id is present on the user
+          # it communicates that the record is persisted however the record
+          # does not exist in postgres
         end
       end
     end
