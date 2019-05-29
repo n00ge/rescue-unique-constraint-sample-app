@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  street: MyString
+  unit: MyString
+  zip: MyString
+
+two:
+  references: 
+  street: MyString
+  unit: MyString
+  zip: MyString
