@@ -1,9 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'saving user with non-unique profile' do
-    let(:profile_attrs) { { street: '123 street', zip: '12345' } }
+  let(:profile_attrs) { { street: '123 street', zip: '12345' } }
 
+  it 'functions as normal without uniqueness issues' do
+    user = User.new(email: 'some@email.com')
+    user.build_profile(profile_attrs)
+    user.save
+
+    aggregate_failures do
+      # these do not fail
+
+      expect(user).to be_persisted
+      expect(user.profile).to be_persisted
+
+      expect { user.reload }.not_to raise_error
+      expect { user.profile.reload }.not_to raise_error
+    end
+  end
+
+  describe 'saving user with non-unique profile' do
     it 'should not raise ActiveRecord::StatementInvalid' do
       # with transactional fixtures enabled, the failure raises an
       # ActiveRecord::StatementInvalid exception
