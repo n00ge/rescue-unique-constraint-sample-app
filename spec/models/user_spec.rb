@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
         user = User.new(email: 'some@email.com')
         user.build_profile(profile_attrs)
         user.save
-      }.not_to raise(ActiveRecord::StatementInvalid)
+      }.not_to raise_error(ActiveRecord::StatementInvalid)
     end
 
     context 'with transactional fixtures disabled', use_transactional_fixtures: false do
@@ -71,7 +71,7 @@ RSpec.describe User, type: :model do
           # this is an even bigger problem with the failure below:
 
           # this is failing
-          expect { user.reload }.not_to raise(ActiveRecord::RecordNotFound)
+          expect { user.reload }.not_to raise_error(ActiveRecord::RecordNotFound)
           # this is unexpected - because the id is present on the user
           # it communicates that the record is persisted however the record
           # does not exist in postgres
